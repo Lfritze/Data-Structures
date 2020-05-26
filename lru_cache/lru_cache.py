@@ -1,3 +1,11 @@
+import sys
+
+sys.path.append('./doubly_linked_list')
+
+from doubly_linked_list import DoublyLinkedList
+
+# LRU = Least Recently Used
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -5,9 +13,16 @@ class LRUCache:
     linked list that holds the key-value entries in the correct
     order, as well as a storage dict that provides fast access
     to every node stored in the cache.
+
+    ---------------------
+    | a d b r l m s |
     """
     def __init__(self, limit=10):
-        pass
+        self.max_nodes = limit
+        self.current_nodes = 0
+
+        self.dll = DoublyLinkedList()
+        self.dict = {}
 
     """
     Retrieves the value associated with the given key. Also
@@ -16,8 +31,29 @@ class LRUCache:
     Returns the value associated with the key or None if the
     key-value pair doesn't exist in the cache.
     """
+    
+
+
+
     def get(self, key):
-        pass
+        #Returns the value associated with the key or None if the
+        #key-value pair doesn't exist in the cache
+        if key not in self.dict:
+            return None
+        # Iterate across the dll for the key
+        node = self.dll.head
+        while node is not None:
+        # Retrieves the value associated with the given key. Also
+        # needs to move the key-value pair to the end of the order
+        # such that the pair is considered most-recently used
+            if key == node.value[0]:
+                self.dll.move_to_front(node)
+                break
+
+            node = node.next
+
+        
+        return self.dict[key]
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -28,6 +64,52 @@ class LRUCache:
     case that the key already exists in the cache, we simply
     want to overwrite the old value associated with the key with
     the newly-specified value.
+
+    self.dll.head.value = (key, value) - tuple
+    self.dll.head.value = {key: value} - dictionary
+    self.dll.head.value = [key, value] - list
+
     """
-    def set(self, key, value):
-        pass
+    def set(self, key, val):
+        # if key already stored, overwrite old value
+        if key in self.dict:
+            #overwrite in the dictionary
+            self.dict[key] = val
+            # overwrite in the dll
+            #iterate across and find node to be update
+            node = self.dll.head
+            while node is not None:
+                #check equality
+                if key == node.value[0]:
+                    # and update the value
+                    node.value[1] = val
+                    #move to head of dll
+                    self.dll.move_to_front(node)                   
+                    break
+
+                node = node.next
+
+        else:
+                
+
+            # handle case where we are already full
+            if self.current_nodes == self.max_nodes:
+                # delete something (least recently used aka - tail)
+                node = self.dll.tail
+                old_key = node.value[0]
+                self.dll.remove_from_tail()
+                # delete from python dictionary too
+                del self.dict[old_key]  
+                # self.dict.pop(old_key) THIS ALSO WORKS
+                self.current_nodes -= 1
+
+            # just add to cache            
+            self.dict[key] = val
+            self.dll.add_to_head([key, val])
+
+            self.current_nodes += 1
+
+
+
+           
+

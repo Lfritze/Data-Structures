@@ -32,6 +32,14 @@ class ListNode:
         if self.next:
             self.next.prev = self.prev
 
+# not so efficient: finding a value
+
+# Efficient: removing or adding from beginning and end
+# Delete
+# Update
+
+
+# Head = Tail
 
 """Our doubly-linked list class. It holds references to
 the list's head and tail nodes."""
@@ -67,6 +75,7 @@ class DoublyLinkedList:
         value = self.head.value
         self.delete(self.head)
         return value
+
 
     """Wraps the given value in a ListNode and inserts it 
     as the new tail of the list. Don't forget to handle 
