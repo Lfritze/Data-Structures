@@ -11,7 +11,8 @@ This part of the project comprises two days:
 """
 
 import sys
-# sys.path.append('../queue_and_stack')
+# sys.path.append('queue.py') 
+# sys.path.append('stack.py') 
 from queue import Queue
 from stack import Stack
 
@@ -143,30 +144,39 @@ class BSTNode:
     # in an iterative breadth first traversal
     def bft_print(self, node):
         # make a queue
-        queue = Queue()
+        q = Queue()
         # enqueue the node
-        queue.enqueue(node)
+        q.enqueue(node)
         # as long as the queue is not empty
+        while len(q) > 0:
         # dequeue from the front of the queue, this is our current node
-        # enqueue the kids on current node on the queue
-
-
-
-
-
-
+            current_node =  q.dequeue()
+            print(current_node.value)
+            # enqueue the kids on current node on the queue
+            if current_node.left is not None:
+                q.enqueue(current_node.left)
+            if current_node.right is not None:
+                q.enqueue(current_node.right)
 
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
-    # make a stack
-    # push the node on the stack
+        # make a stack
+        stack = Stack()
+        # push the node on the stack
+        stack.push(node)
     # as long as the stack is not empty
-    #pop off the stack - our current node
-    ## put the kids of the current node on the stack
-    # check that they are not None, then put them on the stack
+        while len(stack) > 0:
+        #pop off the stack - our current node
+            current_node = stack.pop()
+            print(current_node.value)
+        ## put the kids of the current node on the stack
+        if current_node.left:
+            stack.push(current_node.left)
+        if current_node.right:
+            stack.push(current_node.right)
+        # check that they are not None, then put them on the stack
 
     # Stretch Goals -------------------------
     # Note: Research may be required
