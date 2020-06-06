@@ -32,6 +32,14 @@ class ListNode:
         if self.next:
             self.next.prev = self.prev
 
+# not so efficient: finding a value
+
+# Efficient: removing or adding from beginning and end
+# Delete
+# Update
+
+
+# Head = Tail
 
 """Our doubly-linked list class. It holds references to
 the list's head and tail nodes."""
@@ -43,19 +51,6 @@ class DoublyLinkedList:
 
     def __len__(self):
         return self.length
-
-    def find_middle(self):
-        middle = self.head
-        end = self.head
-
-        while end != None:
-            end = end.next
-            if end != None:
-                end = end.next
-                middle = middle.next
-
-        print(middle)
-        return middle
 
     """Wraps the given value in a ListNode and inserts it 
     as the new head of the list. Don't forget to handle 
@@ -80,6 +75,7 @@ class DoublyLinkedList:
         value = self.head.value
         self.delete(self.head)
         return value
+
 
     """Wraps the given value in a ListNode and inserts it 
     as the new tail of the list. Don't forget to handle 

@@ -13,7 +13,7 @@ return elements in Last In First Out order.
 
 import sys
 from doubly_linked_list import DoublyLinkedList
-sys.path.append('doubly_linked_list.py')
+sys.path.append('doubly_linked_list.py') 
 
 class Stack:
     def __init__(self):

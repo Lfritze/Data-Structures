@@ -44,19 +44,6 @@ class DoublyLinkedList:
     def __len__(self):
         return self.length
 
-    def find_middle(self):
-        middle = self.head
-        end = self.head
-
-        while end != None:
-            end = end.next
-            if end != None:
-                end = end.next
-                middle = middle.next
-
-        print(middle)
-        return middle
-
     """Wraps the given value in a ListNode and inserts it 
     as the new head of the list. Don't forget to handle 
     the old head node's previous pointer accordingly."""
